@@ -1,0 +1,31 @@
+apiVersion: rke-machine-config.cattle.io/v1
+kind: VmwarevsphereConfig
+metadata:
+  name: {{ .Values.cluster.name }}-worker
+  namespace: fleet-default
+common:
+{{- if .Values.cluster.nodepools.workers.labels }}
+  labels:
+{{ toYaml .Values.cluster.nodepools.workers.labels | indent 4 }}
+{{- end }}
+{{- if .Values.cluster.nodepools.workers.taints }}
+  taints:
+{{ toYaml .Values.cluster.nodepools.workers.taints | indent 4 }}
+{{- end }}
+{{- if .Values.cluster.vsphere.cfgparam }}
+cfgparam: {{ .Values.cluster.vsphere.cfgparam }}
+{{- end }}
+creationType: template
+cloneFrom: {{ .Values.cluster.vsphere.template }}
+cloudConfig: {{ .Values.cluster.vsphere.cloudConfig }}
+cloudinit: {{ .Values.cluster.vsphere.cloudinit }}
+datacenter: {{ .Values.cluster.vsphere.datacenter }}
+folder: {{ .Values.cluster.vsphere.folder }}
+pool: {{ .Values.cluster.vsphere.pool }}
+datastore: {{ .Values.cluster.vsphere.datastore }}
+datastoreCluster: {{ .Values.cluster.vsphere.datastoreCluster }}
+network: {{ .Values.cluster.vsphere.network }}
+customAttribute: {{ .Values.cluster.vsphere.customAttribute }}
+tag: {{ .Values.cluster.vsphere.tags }}
+cpuCount: "{{ .Values.cluster.nodepools.workers.cpus }}"
+memorySize: "{{ .Values.cluster.nodepools.workers.vram }}"

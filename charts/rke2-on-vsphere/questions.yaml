@@ -1,0 +1,40 @@
+questions:
+- variable: cluster.vsphere.configSecret
+  description: "Name of the vSphere config secret"
+  group: "General"
+  label: "Cloud credential"
+  required: true
+  type: cloudcredential
+- variable: cluster.name
+  description: "Name of the cluster to be provided"
+  group: "General"
+  label: "Cluster name"
+  required: true
+  type: string
+- variable: cluster.domain
+  description: "Cluster domain name"
+  group: "General"
+  label: "Cluster domain name"
+  required: true
+  type: string
+- variable: kubernetesVersion
+  default: v1.22.6+rke2r1
+  description: "Specify Kubernetes version"
+  group: "General"
+  label: "Kubernetes version"
+  required: true
+  type: enum
+  options:
+  - v1.23.6+rke2r2
+- variable: cluster.nodepools.masters.count
+  description: "Specify number of master nodes"
+  group: "Sizing"
+  label: "Master node count"
+  required: false
+  type: int
+- variable: cluster.nodepools.workers.count
+  description: "Specify number of worker nodes"
+  group: "Sizing"
+  label: "Worker node count"
+  required: false
+  type: int

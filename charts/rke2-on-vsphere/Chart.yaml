@@ -1,0 +1,13 @@
+apiVersion: v1
+name: rke2-on-vsphere
+description: RKE2 on vSphere template
+icon: https://upload.wikimedia.org/wikipedia/labs/thumb/b/ba/Kubernetes-icon-color.svg/247px-Kubernetes-icon-color.svg.png
+maintainers:
+- email: jan@linux.com
+  name: Jan Verhaert
+version: 1 
+annotations:
+  catalog.cattle.io/type: cluster-template
+  catalog.cattle.io/namespace: fleet-default
+  catalog.cattle.io/experimental: 'false'
+  catalog.cattle.io/os: linux

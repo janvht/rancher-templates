@@ -1,0 +1,37 @@
+cluster:
+  version: "v1.23.6+rke2r2"
+  name: ""
+  domain: ""
+  labels: {}
+  annotations: {}
+  nodepools:
+    masters:
+      count: 3
+      cpus: 2
+      vram: 6144
+      paused: false
+    workers:
+      count: 2 
+      cpus: 2
+      vramgb: 8192
+      paused: false
+  vsphere:
+    datacenter: "/dc_xxx"
+    folder: "/dc_xxx/vm/Rancher"
+    pool: "/dc_xxx/host/cluster_xxx/Resources/Rancher"
+    datastore: "/dc_xxx/datastore/ds_xxx"
+    datastoreCluster: ""
+    template: "/dc_xxx/vm/Templates/RHEL8"
+    cloudConfig: "#cloud-config"
+    cloudinit: ""
+    network:
+    - "/dc_xxx/network/net_xxx"
+    cfgparam:
+    - "disk.enableUUID=TRUE"
+    customAttribute: []
+    tags: []
+ 
+global:
+  cattle:
+    systemDefaultRegistry: ""
+

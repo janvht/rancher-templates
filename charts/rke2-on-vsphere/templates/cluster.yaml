@@ -1,0 +1,65 @@
+{{- $clustername := .Values.cluster.name }}
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  {{- if .Values.cluster.labels }}
+  labels:
+{{ toYaml .Values.cluster.labels | indent 4 }}
+  {{- end }}
+  {{- if .Values.cluster.annotations }}
+  annotations:
+{{ toYaml .Values.cluster.annotations | indent 4 }}
+  {{- end }}
+  name: {{ .Values.cluster.name }}
+  namespace: fleet-default
+spec:
+  {{- if .Values.cluster.vsphere.configSecret }}
+  cloudCredentialSecretName: {{ .Values.cluster.vsphere.configSecret }}
+  {{- end }}
+  kubernetesVersion: {{ .Values.cluster.version }}
+  rkeConfig:
+    controlPlaneConfig:
+      cni: calico
+    machineGlobalConfig:
+      cluster-domain: {{ .Values.cluster.domain }}
+      cni: "calico"
+      disable-kube-proxy: false
+      etcd-expose-metrics: false
+      tls-san: []
+      profile: null
+    etcd:
+      disableSnapshots: false
+      s3: null
+      snapshotRetention: 8
+      snapshotScheduleCron: "0 */6 * * *"
+    registries:
+      configs: {}
+      mirrors: {}
+    machinePools:
+    - name: {{ $clustername }}-master
+      displayName: {{ $clustername }}-master
+      hostnamePrefix: {{ $clustername }}-master-
+      quantity: {{ .Values.cluster.nodepools.masters.count }}
+      etcdRole: true
+      controlPlaneRole: true
+      workerRole: false
+      paused: {{ .Values.cluster.nodepools.masters.paused }}
+      unhealthyNodeTimeout: "0m"
+      machineConfigRef:
+        kind: "VmwarevsphereConfig"
+        name: "{{ $clustername }}-master"
+      machineOS: "linux"
+    - name: {{ $clustername }}-worker
+      displayName: {{ $clustername }}-worker
+      hostnamePrefix: {{ $clustername }}-worker-
+      quantity: {{ .Values.cluster.nodepools.workers.count }}
+      etcdRole: false
+      controlPlaneRole: false
+      workerRole: true
+      paused: {{ .Values.cluster.nodepools.masters.paused }}
+      unhealthyNodeTimeout: "0m"
+      machineConfigRef:
+        kind: "VmwarevsphereConfig"
+        name: "{{ $clustername }}-worker"
+      machineOS: "linux"
+
