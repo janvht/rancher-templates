@@ -36,9 +36,8 @@ spec:
       configs: {}
       mirrors: {}
     machinePools:
-    - name: {{ $clustername }}-master
+    - name: mst
       displayName: {{ $clustername }}-master
-      hostnamePrefix: {{ $clustername }}-master-
       quantity: {{ .Values.cluster.nodepools.masters.count }}
       etcdRole: true
       controlPlaneRole: true
@@ -49,9 +48,8 @@ spec:
         kind: "VmwarevsphereConfig"
         name: "{{ $clustername }}-master"
       machineOS: "linux"
-    - name: {{ $clustername }}-worker
+    - name: wrk
       displayName: {{ $clustername }}-worker
-      hostnamePrefix: {{ $clustername }}-worker-
       quantity: {{ .Values.cluster.nodepools.workers.count }}
       etcdRole: false
       controlPlaneRole: false

@@ -17,7 +17,8 @@ cfgparam: {{ .Values.cluster.vsphere.cfgparam }}
 {{- end }}
 creationType: template
 cloneFrom: {{ .Values.cluster.vsphere.template }}
-cloudConfig: {{ .Values.cluster.vsphere.cloudConfig }}
+cloudConfig: |-
+  {{ .Values.cluster.vsphere.cloudConfig }}
 cloudinit: {{ .Values.cluster.vsphere.cloudinit }}
 datacenter: {{ .Values.cluster.vsphere.datacenter }}
 folder: {{ .Values.cluster.vsphere.folder }}

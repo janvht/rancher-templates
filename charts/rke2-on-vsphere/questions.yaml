@@ -38,3 +38,9 @@ questions:
   label: "Worker node count"
   required: false
   type: int
+- variable: cluster.vsphere.template
+  description: "Node template to use"
+  group: "vSphere"
+  label: "Template name"
+  required: true
+  type: string

@@ -8,21 +8,27 @@ cluster:
     masters:
       count: 3
       cpus: 2
-      vram: 6144
+      vram: 8192
       paused: false
     workers:
       count: 2 
       cpus: 2
-      vramgb: 8192
+      vram: 8192
       paused: false
   vsphere:
     datacenter: "/dc_xxx"
     folder: "/dc_xxx/vm/Rancher"
-    pool: "/dc_xxx/host/cluster_xxx/Resources/Rancher"
-    datastore: "/dc_xxx/datastore/ds_xxx"
+    pool: "/dc_xxx/host/xxx_cluster/Resources/Rancher"
+    datastore: "/dc_xxx/datastore/vol_xxx"
     datastoreCluster: ""
     template: "/dc_xxx/vm/Templates/RHEL8"
-    cloudConfig: "#cloud-config"
+    cloudConfig: |-
+      #cloud-config
+        network:
+          version: 2
+          ethernets:
+            eth0:
+              dhcp4: true
     cloudinit: ""
     network:
     - "/dc_xxx/network/net_xxx"
