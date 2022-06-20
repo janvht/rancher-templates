@@ -10,7 +10,7 @@ metadata:
   annotations:
 {{ toYaml .Values.cluster.annotations | indent 4 }}
   {{- end }}
-  name: {{ .Values.cluster.name }}
+  name: "{{ .Values.cluster.name }}"
   namespace: fleet-default
 spec:
   {{- if .Values.cluster.vsphere.configSecret }}
